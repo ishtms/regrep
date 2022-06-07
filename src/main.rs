@@ -9,5 +9,8 @@ fn main() {
     let file_name: &String = &args[1];
     let regex_to_search: &String = &args[2];
 
-    println!("Searching for {} in file: {}", regex_to_search, file_name);
+    println!(
+        "Searching for \"{}\" in file: {}",
+        regex_to_search, file_name
+    );
 }
