@@ -25,6 +25,39 @@ pub fn read_file(filename: &str, query: &str) -> Result<String, io::Error> {
 
 pub fn run(filename: &str, query: &str) -> Result<(), Box<dyn Error>> {
     let file_contents: String = read_file(&filename, &query)?;
-    println!("{}", file_contents);
+    println!("\n*------------ OUTPUT ------------*\n");
+    let matches: Vec<(&str, usize)> = search(query, &file_contents);
+    println!("Total {} matches found!", matches.len());
+    for curr_line in matches.iter() {
+        println!("Line {}: {}", curr_line.1, curr_line.0);
+    }
+
+    println!("\n*---------- OUTPUT END ----------*\n");
     Ok(())
+}
+
+fn search<'a>(query: &'a str, contents: &'a str) -> Vec<(&'a str, usize)> {
+    let mut result_vector = Vec::new();
+    for (index, curr_line) in contents.lines().enumerate() {
+        if curr_line.contains(query) {
+            result_vector.push((curr_line, index + 1));
+        }
+    }
+    result_vector
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn one_result() {
+        let contents = "\
+fn main() {
+    doSomething();
+}
+main();";
+        let query = "doS";
+        assert_eq!(vec![("    doSomething();", 2)], search(query, contents));
+    }
 }

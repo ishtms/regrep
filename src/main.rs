@@ -11,10 +11,6 @@ fn main() {
         process::exit(1);
     });
 
-    println!(
-        "Searching inside file: {}\nQuery to search: {}",
-        filename, query
-    );
     if let Err(error) = rustgrep::run(filename, query) {
         println!(
             "Something went wrong while parsing the contents of the file: {}",
