@@ -1,16 +1,28 @@
 use std::env;
+use std::fs;
+use std::io;
+
+struct Config<'a> {
+    filename: &'a str,
+    query: &'a str,
+}
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let args_slice: &[String] = &args[1..];
-    println!("{:#?}", args_slice);
 
-    // Alternately we can hard code the address/reference of the arguments into variables
-    let file_name: &String = &args[1];
-    let regex_to_search: &String = &args[2];
+    let Config { filename, query } = parse_args(&args);
 
-    println!(
-        "Searching for \"{}\" in file: {}",
-        regex_to_search, file_name
-    );
+    let file_contents: String = read_file(&filename, &query).unwrap();
+    println!("{}", file_contents);
+}
+
+fn parse_args<'a>(args: &'a [String]) -> Config {
+    let filename: &String = &args[1];
+    let query: &String = &args[2];
+    Config { filename, query }
+}
+
+fn read_file(filename: &str, query: &str) -> Result<String, io::Error> {
+    let file_contents: String = fs::read_to_string(filename)?;
+    Ok(file_contents)
 }
