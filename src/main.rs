@@ -1,7 +1,7 @@
 use std::env;
 use std::process;
 
-use rustgrep::Config;
+use regrep::Config;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -11,7 +11,7 @@ fn main() {
         process::exit(1);
     });
 
-    if let Err(error) = rustgrep::run(filename, query) {
+    if let Err(error) = regrep::run(filename, query) {
         println!(
             "Something went wrong while parsing the contents of the file: {}",
             error
