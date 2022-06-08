@@ -1,0 +1,7 @@
+Line 97:     pub fn new_with_compiled_instructions<T: Signers>(
+Line 108:         let message = Message::new_with_compiled_instructions(
+Line 399:         let tx = Transaction::new_with_compiled_instructions(
+Line 434:         let tx = Transaction::new_with_compiled_instructions(
+Line 447:         let tx = Transaction::new_with_compiled_instructions(
+
+Total 5 matches found!
