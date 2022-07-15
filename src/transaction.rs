@@ -1,5 +1,5 @@
 #![cfg(feature = "full")]
-
+#[allow(dead_code)] // remove
 use {
     crate::{
         hash::Hash,
